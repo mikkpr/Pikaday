@@ -1,6 +1,7 @@
 /*!
  * Pikaday
  * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
+ * Modified by Mikk Pristavka in August 2016
  */
 
 // Variables
@@ -8,102 +9,108 @@
 // Variables are namespaced with the pd (pikaday) prefix
 
 // Colours
-$pd-text-color: #333 !default;
+$pd-text-color: rgb(60, 60, 60) !default;
 $pd-title-color: #333 !default;
 $pd-title-bg: #fff !default;
 $pd-picker-bg: #fff !default;
 $pd-picker-border: #ccc !default;
 $pd-picker-border-bottom: #bbb !default;
-$pd-picker-shadow: rgba(0,0,0,.5) !default;
+$pd-picker-shadow: rgba(0, 0, 0, .5) !default;
 $pd-th-color: #999 !default;
-$pd-day-color: #666 !default;
-$pd-day-bg: #f5f5f5 !default;
+$pd-day-color: rgb(140, 140, 140) !default;
+$pd-day-bg: transparent !default;
 $pd-day-hover-color: #fff !default;
 $pd-day-hover-bg: #ff8000 !default;
-$pd-day-today-color: #33aaff !default;
+$pd-day-today-color: rgb(204, 237, 244) !default;
 $pd-day-selected-color: #fff !default;
-$pd-day-selected-bg: #33aaff !default;
-$pd-day-selected-shadow: #178fe5 !default;
 $pd-day-disabled-color: #999 !default;
 $pd-week-color: #999 !default;
 
+$bold: 600;
+$avenir: 'Avenir Next', 'AvenirX', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$zindex: 56000;
 // Font
-$pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$pd-font-family: $avenir;
 
 
 .pika-single {
-    z-index: 9999;
-    display: block;
-    position: relative;
-    color: $pd-text-color;
-    background: $pd-picker-bg;
-    border: 1px solid $pd-picker-border;
-    border-bottom-color: $pd-picker-border-bottom;
-    font-family: $pd-font-family;
+  *zoom: 1;
+  background: $pd-picker-bg;
+  border: 1px solid transparent;
+  border-bottom-color: $pd-picker-border-bottom;
+  color: $pd-text-color;
+  display: block;
+  font-family: $pd-font-family;
+  position: relative;
+  z-index: $zindex;
 
-    &.is-hidden {
-        display: none;
-    }
+  &.is-hidden {
+    display: none;
+  }
 
-    &.is-bound {
-        position: absolute;
-        box-shadow: 0 5px 15px -5px $pd-picker-shadow;
-    }
-}
+  &.is-bound {
+    box-shadow: 0 1px 5px 0 $pd-picker-shadow;
+    position: absolute;
+  }
 
-// clear child float (pika-lendar), using the famous micro clearfix hack
-// http://nicolasgallagher.com/micro-clearfix-hack/
-.pika-single {
-    *zoom: 1;
+  // clear child float (pika-lendar), using the famous micro clearfix hack
+  // http://nicolasgallagher.com/micro-clearfix-hack/
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
 
-    &:before,
-    &:after {
-        content: " ";
-        display: table;
-    }
-
-    &:after { clear: both }
+  &:after { clear: both }
 }
 
 .pika-lendar {
-    float: left;
-    width: 240px;
-    margin: 8px;
+  float: left;
+  margin: 8px;
+  width: 240px;
 }
 
 .pika-title {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 
-    select {
-        cursor: pointer;
-        position: absolute;
-        z-index: 9998;
-        margin: 0;
-        left: 0;
-        top: 5px;
-        filter: alpha(opacity=0);
-        opacity: 0;
-    }
+  select {
+    cursor: pointer;
+    position: absolute;
+    z-index: 9998;
+    margin: 0;
+    left: 0;
+    top: 5px;
+    filter: alpha(opacity = 0);
+    opacity: 0;
+  }
 }
 
 .pika-label {
     display: inline-block;
     *display: inline;
     position: relative;
-    z-index: 9999;
+    z-index: $zindex;
     overflow: hidden;
     margin: 0;
     padding: 5px 3px;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 20px;
-    font-weight: bold;
-    color: $pd-title-color;
+    font-weight: $bold;
+    color: $pd-text-color;
     background-color: $pd-title-bg;
+    vertical-align: middle;
+
+    & + & {
+      margin-right: .25em;
+    }
 }
 
 .pika-prev,
-.pika-next {
+.pika-next,
+.pika-up,
+.pika-down {
+    color: $pd-text-color;
     display: block;
     cursor: pointer;
     position: relative;
@@ -134,22 +141,146 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 }
 
 .pika-prev,
+.pika-next,
+.pika-up,
+.pika-down,
+.is-rtl .pika-prev,
+.is-rtl .pika-prev {
+  &::before {
+    border-image: none;
+    position: absolute;
+    top: calc(50% - 5px);
+    right: 5px;
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px;
+    content: '';
+  }
+}
+
+.pika-prev,
 .is-rtl .pika-next {
     float: left;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==');
     *left: 0;
+
+    &::before {
+      border-color: transparent currentColor transparent transparent;
+    }
 }
 
 .pika-next,
 .is-rtl .pika-prev {
     float: right;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=');
     *right: 0;
+
+    &::before {
+      border-color: transparent transparent transparent currentColor;
+    }
+}
+
+.pika-up {
+    float: left;
+    *left: 0;
+
+    &::before {
+      border-color: transparent transparent currentColor transparent;
+    }
+}
+
+.pika-down {
+    float: right;
+    *right: 0;
+
+    &::before {
+      border-color: currentColor transparent transparent transparent;
+    }
+}
+
+.pika-up,
+.pika-down {
+  height: 20px;
 }
 
 .pika-select {
     display: inline-block;
     *display: inline;
+}
+
+.pika-select-container {
+  position: relative;
+
+  &.has-overlay {
+    min-width: 2em;
+    height: 30px;
+
+    .pika-select {
+      position: absolute;
+      top: 11px;
+      left: 0;
+      right: 0;
+      bottom: 10px;
+      opacity: 0;
+
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    }
+  }
+
+  .pika-select {
+    margin: 0;
+    padding: .5em .25em;
+    min-width: 3em;
+
+    &:active,
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .pika-select-overlay {
+    position: absolute;
+    top: 11px;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    text-align: center;
+    vertical-align: center;
+    line-height: 33px;
+    font-size: 18px;
+    font-weight: 500;
+    color: $pd-text-color;
+  }
+
+  .separator {
+    padding: 0 .5em;
+  }
+
+
+  > .pika-up,
+  > .pika-down {
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+  }
+
+  > .pika-up {
+    top: -6px;
+  }
+
+  > .pika-down {
+    bottom: -8px;
+  }
+
+  &.with-increment-buttons {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 
 .pika-table {
@@ -162,13 +293,14 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
     td {
         width: 14.285714285714286%;
         padding: 0;
+        text-align: center;
     }
 
     th {
-        color: $pd-th-color;
+        color: $pd-text-color;
         font-size: 12px;
         line-height: 25px;
-        font-weight: bold;
+        font-weight: $bold;
         text-align: center;
     }
 
@@ -190,20 +322,21 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
     padding: 5px;
     color: $pd-day-color;
     font-size: 12px;
+    font-weight: 400;
     line-height: 15px;
-    text-align: right;
+    text-align: center;
     background: $pd-day-bg;
 
     .is-today & {
-        color: $pd-day-today-color;
-        font-weight: bold;
+        color: $pd-text-color;
+        background: $pd-day-bg;
+        font-weight: $bold;
     }
 
     .is-selected & {
-        color: $pd-day-selected-color;
-        font-weight: bold;
-        background: $pd-day-selected-bg;
-        box-shadow: inset 0 1px 3px $pd-day-selected-shadow;
+        color: $pd-day-color;
+        font-weight: 400;
+        background: $pd-day-today-color;
         border-radius: 3px;
     }
 
@@ -217,9 +350,10 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
     &:hover {
         color: $pd-day-hover-color;
-        background: $pd-day-hover-bg;
+        background: rgba(0,0,0,.25);
         box-shadow: none;
         border-radius: 3px;
+        font-weight: 600;
     }
 }
 
@@ -251,5 +385,12 @@ $pd-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 }
 
 .pika-time {
-    margin: 7px auto 7px;
+  margin: 7px auto 7px;
+
+  .pika-time-label {
+    font-weight: $bold;
+    font-size: 11px;
+    color: #666;
+    padding-right: 0.33em;
+  }
 }

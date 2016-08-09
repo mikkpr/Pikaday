@@ -1,235 +1,338 @@
 @charset "UTF-8";
-
 /*!
  * Pikaday
  * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
+ * Modified by Mikk Pristavka in August 2016
  */
-
 .pika-single {
-    z-index: 9999;
-    display: block;
-    position: relative;
-    color: #333;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-bottom-color: #bbb;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  *zoom: 1;
+  background: #fff;
+  border: 1px solid transparent;
+  border-bottom-color: #bbb;
+  color: #3c3c3c;
+  display: block;
+  font-family: "Avenir Next", "AvenirX", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  z-index: 56000;
 }
-
-/*
-clear child float (pika-lendar), using the famous micro clearfix hack
-http://nicolasgallagher.com/micro-clearfix-hack/
-*/
-.pika-single:before,
-.pika-single:after {
-    content: " ";
-    display: table;
-}
-.pika-single:after { clear: both }
-.pika-single { *zoom: 1 }
-
 .pika-single.is-hidden {
-    display: none;
+  display: none;
 }
-
 .pika-single.is-bound {
-    position: absolute;
-    box-shadow: 0 5px 15px -5px rgba(0,0,0,.5);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
+  position: absolute;
+}
+.pika-single:before, .pika-single:after {
+  content: ' ';
+  display: table;
+}
+.pika-single:after {
+  clear: both;
 }
 
 .pika-lendar {
-    float: left;
-    width: 240px;
-    margin: 8px;
+  float: left;
+  margin: 8px;
+  width: 240px;
 }
 
 .pika-title {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
+}
+.pika-title select {
+  cursor: pointer;
+  position: absolute;
+  z-index: 9998;
+  margin: 0;
+  left: 0;
+  top: 5px;
+  filter: alpha(opacity=0);
+  opacity: 0;
 }
 
 .pika-label {
-    display: inline-block;
-    *display: inline;
-    position: relative;
-    z-index: 9999;
-    overflow: hidden;
-    margin: 0;
-    padding: 5px 3px;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: bold;
-    background-color: #fff;
+  display: inline-block;
+  *display: inline;
+  position: relative;
+  z-index: 56000;
+  overflow: hidden;
+  margin: 0;
+  padding: 5px 3px;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #3c3c3c;
+  background-color: #fff;
+  vertical-align: middle;
 }
-.pika-title select {
-    cursor: pointer;
-    position: absolute;
-    z-index: 9998;
-    margin: 0;
-    left: 0;
-    top: 5px;
-    filter: alpha(opacity=0);
-    opacity: 0;
+.pika-label + .pika-label {
+  margin-right: .25em;
 }
 
 .pika-prev,
-.pika-next {
-    display: block;
-    cursor: pointer;
-    position: relative;
-    outline: none;
-    border: 0;
-    padding: 0;
-    width: 20px;
-    height: 30px;
-    color: rgba(0, 0, 0, 0);
-    white-space: nowrap;
-    overflow: hidden;
-    background-color: transparent;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 75% 75%;
-    opacity: .5;
-    *position: absolute;
-    *top: 0;
+.pika-next,
+.pika-up,
+.pika-down {
+  color: #3c3c3c;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  border: 0;
+  padding: 0;
+  width: 20px;
+  height: 30px;
+  text-indent: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75% 75%;
+  opacity: .5;
+  *position: absolute;
+  *top: 0;
+}
+.pika-prev:hover,
+.pika-next:hover,
+.pika-up:hover,
+.pika-down:hover {
+  opacity: 1;
+}
+.pika-prev.is-disabled,
+.pika-next.is-disabled,
+.pika-up.is-disabled,
+.pika-down.is-disabled {
+  cursor: default;
+  opacity: .2;
 }
 
-.pika-prev:hover,
-.pika-next:hover {
-    opacity: 1;
+.pika-prev::before,
+.pika-next::before,
+.pika-up::before,
+.pika-down::before,
+.is-rtl .pika-prev::before,
+.is-rtl .pika-prev::before {
+  border-image: none;
+  position: absolute;
+  top: calc(50% - 5px);
+  right: 5px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px;
+  content: '';
 }
 
 .pika-prev,
 .is-rtl .pika-next {
-    float: left;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==');
-    *left: 0;
+  float: left;
+  *left: 0;
+}
+.pika-prev::before,
+.is-rtl .pika-next::before {
+  border-color: transparent currentColor transparent transparent;
 }
 
 .pika-next,
 .is-rtl .pika-prev {
-    float: right;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=');
-    *right: 0;
+  float: right;
+  *right: 0;
+}
+.pika-next::before,
+.is-rtl .pika-prev::before {
+  border-color: transparent transparent transparent currentColor;
 }
 
-.pika-prev.is-disabled,
-.pika-next.is-disabled {
-    cursor: default;
-    opacity: .2;
+.pika-up {
+  float: left;
+  *left: 0;
+}
+.pika-up::before {
+  border-color: transparent transparent currentColor transparent;
+}
+
+.pika-down {
+  float: right;
+  *right: 0;
+}
+.pika-down::before {
+  border-color: currentColor transparent transparent transparent;
+}
+
+.pika-up,
+.pika-down {
+  height: 20px;
 }
 
 .pika-select {
-    display: inline-block;
-    *display: inline;
+  display: inline-block;
+  *display: inline;
+}
+
+.pika-select-container {
+  position: relative;
+}
+.pika-select-container.has-overlay {
+  min-width: 2em;
+  height: 30px;
+}
+.pika-select-container.has-overlay .pika-select {
+  position: absolute;
+  top: 11px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  opacity: 0;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+.pika-select-container .pika-select {
+  margin: 0;
+  padding: .5em .25em;
+  min-width: 3em;
+}
+.pika-select-container .pika-select:active, .pika-select-container .pika-select:focus {
+  outline: 0;
+}
+.pika-select-container .pika-select-overlay {
+  position: absolute;
+  top: 11px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  text-align: center;
+  vertical-align: center;
+  line-height: 33px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #3c3c3c;
+}
+.pika-select-container .separator {
+  padding: 0 .5em;
+}
+.pika-select-container > .pika-up,
+.pika-select-container > .pika-down {
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+}
+.pika-select-container > .pika-up {
+  top: -6px;
+}
+.pika-select-container > .pika-down {
+  bottom: -8px;
+}
+.pika-select-container.with-increment-buttons {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .pika-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 0;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
 }
-
 .pika-table th,
 .pika-table td {
-    width: 14.285714285714286%;
-    padding: 0;
+  width: 14.285714285714286%;
+  padding: 0;
+  text-align: center;
 }
-
 .pika-table th {
-    color: #999;
-    font-size: 12px;
-    line-height: 25px;
-    font-weight: bold;
-    text-align: center;
+  color: #3c3c3c;
+  font-size: 12px;
+  line-height: 25px;
+  font-weight: 600;
+  text-align: center;
+}
+.pika-table abbr {
+  border-bottom: none;
+  cursor: help;
 }
 
 .pika-button {
-    cursor: pointer;
-    display: block;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
-    border: 0;
-    margin: 0;
-    width: 100%;
-    padding: 5px;
-    color: #666;
-    font-size: 12px;
-    line-height: 15px;
-    text-align: right;
-    background: #f5f5f5;
+  cursor: pointer;
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  padding: 5px;
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: center;
+  background: transparent;
+}
+.is-today .pika-button {
+  color: #3c3c3c;
+  background: transparent;
+  font-weight: 600;
+}
+.is-selected .pika-button {
+  color: #8c8c8c;
+  font-weight: 400;
+  background: #ccedf4;
+  border-radius: 3px;
+}
+.is-disabled .pika-button, .is-outside-current-month .pika-button {
+  pointer-events: none;
+  cursor: default;
+  color: #999;
+  opacity: .3;
+}
+.pika-button:hover {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: none;
+  border-radius: 3px;
+  font-weight: 600;
 }
 
 .pika-week {
-    font-size: 11px;
-    color: #999;
-}
-
-.is-today .pika-button {
-    color: #33aaff;
-    font-weight: bold;
-}
-
-.is-selected .pika-button {
-    color: #fff;
-    font-weight: bold;
-    background: #33aaff;
-    box-shadow: inset 0 1px 3px #178fe5;
-    border-radius: 3px;
+  font-size: 11px;
+  color: #999;
 }
 
 .is-inrange .pika-button {
-    background: #D5E9F7;
+  background: #D5E9F7;
 }
 
 .is-startrange .pika-button {
-    color: #fff;
-    background: #6CB31D;
-    box-shadow: none;
-    border-radius: 3px;
+  color: #fff;
+  background: #6CB31D;
+  box-shadow: none;
+  border-radius: 3px;
 }
 
 .is-endrange .pika-button {
-    color: #fff;
-    background: #33aaff;
-    box-shadow: none;
-    border-radius: 3px;
-}
-
-.is-disabled .pika-button,
-.is-outside-current-month .pika-button {
-    pointer-events: none;
-    cursor: default;
-    color: #999;
-    opacity: .3;
-}
-
-.pika-button:hover {
-    color: #fff;
-    background: #ff8000;
-    box-shadow: none;
-    border-radius: 3px;
-}
-
-/* styling for abbr */
-.pika-table abbr {
-    border-bottom: none;
-    cursor: help;
+  color: #fff;
+  background: #33aaff;
+  box-shadow: none;
+  border-radius: 3px;
 }
 
 .pika-time-container {
-    clear: both;
+  clear: both;
 }
 
 .pika-time {
-    margin: 7px auto 7px;
+  margin: 7px auto 7px;
 }
-
 .pika-time .pika-time-label {
-    font-weight: bold;
-    font-size: 11px;
-    color: #666;
-    padding-right: 0.33em;
+  font-weight: 600;
+  font-size: 11px;
+  color: #666;
+  padding-right: 0.33em;
 }

@@ -257,6 +257,8 @@
         incrementMinuteBy: 1,
         incrementSecondBy: 1,
         timeLabel: null,
+        useSelect: true,
+        incrementButtons: false,
 
         // option to prevent calendar from auto-closing after date is selected
         autoClose: true,
@@ -434,13 +436,36 @@
         return '<table cellpadding="0" cellspacing="0" class="pika-table" role="grid" aria-labelledby="' + randId + '">' + renderHead(opts) + renderBody(data) + '</table>';
     },
 
-    renderTimePicker = function(num_options, selected_val, select_class, display_func, increment_by) {
+    renderIncrementButton = function(type) {
+      return '<button class="pika-up ' + 'pika-increment-' + type + '" type="button">+</button>';
+    },
+
+    renderDecrementButton = function(type) {
+      return '<button class="pika-down ' + 'pika-decrement-' + type + '" type="button">-</button>';
+    },
+
+    renderTimePicker = function(num_options, selected_val, select_class, display_func, increment_by, opts) {
         increment_by = increment_by || 1;
-        var to_return = '<td><select class="pika-select '+select_class+'">';
-        for (var i = 0; i < num_options; i += increment_by) {
-            to_return += '<option value="'+i+'" '+(i==selected_val ? 'selected' : '')+'>'+display_func(i)+'</option>'
+        var containerClass = 'pika-select-container has-overlay',
+            type = select_class.replace(/pika\-select\-/, '');
+
+        if (opts.incrementButtons) {
+          containerClass += ' with-increment-buttons';
         }
-        to_return += '</select></td>';
+
+        var to_return = '<td>'
+        to_return += '<div class="' + containerClass + '">';
+        to_return += '<div class="pika-select-overlay">' + display_func(selected_val) + '</div>';
+        to_return += (opts.incrementButtons ? renderIncrementButton(type) : '');
+        to_return += '<select class="pika-select ' + select_class + '">';
+        for (var i = 0; i < num_options; i += increment_by) {
+            to_return += '<option value="' + i + '" ' + (i === selected_val ? 'selected' : '') + '>' + display_func(i) + '</option>';
+        }
+        to_return += '</select>'
+        to_return += (opts.incrementButtons ? renderDecrementButton(type) : '');
+        to_return += '</div>';
+        to_return += '</td>';
+
         return to_return;
     },
 
@@ -450,9 +475,9 @@
             (opts.timeLabel !== null ? '<td class="pika-time-label">'+opts.timeLabel+'</td>' : '') +
             renderTimePicker(24, hh, 'pika-select-hour', function(i) {
                 if (opts.use24hour) {
-                    return i;
+                    if (i < 10) return "0" + i; return i
                 } else {
-                    var to_return = (i%12) + (i<12 ? ' AM' : ' PM');
+                    var to_return = (i%12) + (i<12 ? ' AM' : ' PM')
                     if (to_return == '0 AM') {
                         return opts.i18n.midnight;
                     } else if (to_return == '0 PM') {
@@ -462,13 +487,13 @@
                     }
                 }
             },
-            opts.incrementHourBy) +
-            '<td>:</td>' +
-            renderTimePicker(60, mm, 'pika-select-minute', function(i) { if (i < 10) return "0" + i; return i }, opts.incrementMinuteBy);
+            opts.incrementHourBy, opts) +
+            '<td class="separator">:</td>' +
+            renderTimePicker(60, mm, 'pika-select-minute', function(i) { if (i < 10) return "0" + i; return i }, opts.incrementMinuteBy, opts);
 
         if (opts.showSeconds) {
             to_return += '<td>:</td>' +
-                renderTimePicker(60, ss, 'pika-select-second', function(i) { if (i < 10) return "0" + i; return i }, opts.incrementSecondBy);
+                renderTimePicker(60, ss, 'pika-select-second', function(i) { if (i < 10) return "0" + i; return i }, opts.incrementSecondBy, opts);
         }
         return to_return + '</tr></tbody></table>';
     },
@@ -549,6 +574,7 @@
             if (!target) {
                 return;
             }
+
             if (hasClass(target, 'pika-select-month')) {
                 self.gotoMonth(target.value);
             }
@@ -653,6 +679,26 @@
             if (!target) {
                 return;
             }
+
+            if (hasClass(target, 'pika-increment-hour')) {
+              self.incrementHours(1);
+            }
+            if (hasClass(target, 'pika-decrement-hour')) {
+              self.decrementHours(1);
+            }
+            if (hasClass(target, 'pika-increment-minute')) {
+              self.incrementMinutes(1);
+            }
+            if (hasClass(target, 'pika-decrement-minute')) {
+              self.decrementMinutes(1);
+            }
+            if (hasClass(target, 'pika-increment-second')) {
+              self.incrementSeconds(1);
+            }
+            if (hasClass(target, 'pika-decrement-second')) {
+              self.decrementSeconds(1);
+            }
+
             if (!hasEventListeners && hasClass(target, 'pika-select')) {
                 if (!target.onchange) {
                     target.setAttribute('onchange', 'return;');
@@ -845,16 +891,75 @@
                 this._d = new Date();
                 this._d.setHours(0,0,0,0);
             }
-            if (hours) {
+            if (hours !== null && typeof hours !== 'undefined' && typeof +hours === 'number') {
                 this._d.setHours(hours);
             }
-            if (minutes) {
+            if (minutes !== null && typeof minutes !== 'undefined' && typeof +minutes === 'number') {
                 this._d.setMinutes(minutes);
             }
-            if (seconds) {
+            if (seconds !== null && typeof seconds !== 'undefined' && typeof +seconds === 'number') {
                 this._d.setSeconds(seconds);
             }
             this.setDate(this._d);
+        },
+
+        setHours: function(hours) {
+          var date = this.getDate(),
+              minutes = date.getMinutes(),
+              seconds = date.getSeconds();
+
+          this.setTime(hours, minutes, seconds);
+        },
+
+        setMinutes: function(minutes) {
+          var date = this.getDate(),
+              hours = date.getHours(),
+              seconds = date.getSeconds();
+          this.setTime(hours, minutes, seconds);
+        },
+
+        setSeconds: function(seconds) {
+          var date = this.getDate(),
+              hours = date.getHours(),
+              minutes = date.getMinutes();
+
+          this.setTime(hours, minutes, seconds);
+        },
+
+        incrementHours: function(value) {
+          var incValue = typeof value === 'undefined' ? 1 : value,
+              date = this.getDate(),
+              hours = date.getHours();
+
+          this.setHours(hours + incValue);
+        },
+
+        incrementMinutes: function(value) {
+          var incValue = typeof value === 'undefined' ? 1 : value,
+              date = this.getDate(),
+              minutes = date.getMinutes();
+
+          this.setMinutes(minutes + incValue);
+        },
+
+        incrementSeconds: function(value) {
+          var incValue = typeof value === 'undefined' ? 1 : value,
+              date = this.getDate(),
+              seconds = date.getSeconds();
+
+          this.setSeconds(seconds + incValue);
+        },
+
+        decrementHours: function(value) {
+          this.incrementHours(-value);
+        },
+
+        decrementMinutes: function(value) {
+          this.incrementMinutes(-value);
+        },
+
+        decrementSeconds: function(value) {
+          this.incrementSeconds(-value);
         },
 
         /**
@@ -1023,8 +1128,8 @@
          */
         setMinDate: function(value)
         {
-            if(value instanceof Date) {
-                if (!this._o.showTime) setToStartOfDay(value);
+            if (value instanceof Date) {
+                setToStartOfDay(value);
                 this._o.minDate = value;
                 this._o.minYear  = value.getFullYear();
                 this._o.minMonth = value.getMonth();
@@ -1042,8 +1147,8 @@
          */
         setMaxDate: function(value)
         {
-            if(value instanceof Date) {
-                if (!this._o.showTime) setToStartOfDay(value);
+            if (value instanceof Date) {
+                setToStartOfDay(value);
                 this._o.maxDate = value;
                 this._o.maxYear = value.getFullYear();
                 this._o.maxMonth = value.getMonth();
@@ -1125,8 +1230,11 @@
             if (typeof this._o.onDraw === 'function') {
                 this._o.onDraw(this);
             }
-          // let the screen reader user know to use arrow keys
-          this._o.field.setAttribute('aria-label', 'Use the arrow keys to pick a date');
+
+            // let the screen reader user know to use arrow keys
+            if (this._o.field) {
+              this._o.field.setAttribute('aria-label', 'Use the arrow keys to pick a date');
+            }
         },
 
         adjustPosition: function()
