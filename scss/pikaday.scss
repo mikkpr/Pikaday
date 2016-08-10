@@ -24,6 +24,9 @@ $pd-day-color: rgb(204, 237, 244) !default;
 $pd-day-hover-bg: #ff8000 !default;
 $pd-day-selected-color: #fff !default;
 $pd-day-selected-bg: rgba(0, 0, 0, .25) !default;
+$pd-time-picker-bg: rgba(0, 0, 0, .035) !default;
+$pd-time-picker-height: 75px;
+$pd-time-padding: 15px;
 $pd-day-disabled-color: #999 !default;
 $pd-week-color: #999 !default;
 
@@ -37,7 +40,6 @@ $pd-font-family: $avenir;
 .pika-single {
   *zoom: 1;
   background: $pd-picker-bg;
-  border: 1px solid transparent;
   border-bottom-color: $pd-picker-border-bottom;
   color: $pd-text-color;
   display: block;
@@ -201,81 +203,12 @@ $pd-font-family: $avenir;
 
 .pika-up,
 .pika-down {
-  height: 20px;
+  height: 30px;
 }
 
 .pika-select {
   *display: inline;
   display: inline-block;
-}
-
-.pika-select-container {
-  position: relative;
-
-  &.has-overlay {
-    height: 30px;
-    min-width: 2em;
-
-    .pika-select {
-      position: absolute;
-      top: 11px;
-      right: 0;
-      bottom: 10px;
-      left: 0;
-      opacity: 0;
-      appearance: none;
-    }
-  }
-
-  .pika-select {
-    min-width: 3em;
-    padding: .5em .25em;
-    margin: 0;
-
-    &:active,
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  .pika-select-overlay {
-    position: absolute;
-    top: 11px;
-    right: 0;
-    bottom: 10px;
-    left: 0;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 33px;
-    color: $pd-text-color;
-    text-align: center;
-    vertical-align: center;
-  }
-
-  .separator {
-    padding: 0 .5em;
-  }
-
-
-  > .pika-up,
-  > .pika-down {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  > .pika-up {
-    top: -6px;
-  }
-
-  > .pika-down {
-    bottom: -8px;
-  }
-
-  &.with-increment-buttons {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
 }
 
 .pika-table {
@@ -289,6 +222,7 @@ $pd-font-family: $avenir;
     width: 14.285714285714286%;
     padding: 0;
     text-align: center;
+    vertical-align: middle;
   }
 
   th {
@@ -315,9 +249,9 @@ $pd-font-family: $avenir;
   color: $pd-text-color;
   text-align: center;
   cursor: pointer;
-  outline: none;
-  border: 0;
   background: $pd-day-bg;
+  border: 0;
+  outline: none;
   box-sizing: border-box;
 
   .is-today & {
@@ -330,6 +264,10 @@ $pd-font-family: $avenir;
     color: $pd-day-selected-color;
     background: $pd-day-selected-bg;
     border-radius: 3px;
+
+    &:hover {
+      font-weight: 600;
+    }
   }
 
   .is-disabled &,
@@ -373,15 +311,86 @@ $pd-font-family: $avenir;
 }
 
 .pika-time-container {
+  height: $pd-time-picker-height;
   clear: both;
+  background: $pd-time-picker-bg;
+}
+
+.pika-select-container {
+  position: relative;
+  height: $pd-time-picker-height;
+  min-width: 2em;
+
+  &.has-overlay {
+    .pika-select {
+      position: absolute;
+      top: $pd-time-padding;
+      right: 0;
+      bottom: $pd-time-padding;
+      left: 0;
+      padding: 10px 0;
+      opacity: 0;
+      appearance: none;
+    }
+  }
+
+  .pika-select {
+    z-index: 1;
+    min-width: 3em;
+    padding: .5em .25em;
+    margin: 0;
+
+    &:active,
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .pika-select-overlay {
+    position: absolute;
+    top: $pd-time-padding;
+    right: 0;
+    bottom: $pd-time-padding;
+    left: 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: $pd-time-picker-height - 30px;
+    color: $pd-text-color;
+    text-align: center;
+    vertical-align: center;
+  }
+
+  .separator {
+    padding: 0 .5em;
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+
+  > .pika-up,
+  > .pika-down {
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+  }
+
+  > .pika-up {
+    top: 0;
+  }
+
+  > .pika-down {
+    bottom: 0;
+  }
 }
 
 .pika-time {
-  margin: 7px auto;
+  margin: 0 auto;
+  line-height: $pd-time-picker-height;
 
   .pika-time-label {
     padding-right: .33em;
-    font-size: 11px;
+    font-size: 18px;
     font-weight: $bold;
     color: $pd-text-color;
   }

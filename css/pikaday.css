@@ -7,7 +7,6 @@
 .pika-single {
   *zoom: 1;
   background: #fff;
-  border: 1px solid transparent;
   border-bottom-color: #bbb;
   color: #3c3c3c;
   display: block;
@@ -177,82 +176,12 @@
 
 .pika-up,
 .pika-down {
-  height: 20px;
+  height: 30px;
 }
 
 .pika-select {
   *display: inline;
   display: inline-block;
-}
-
-.pika-select-container {
-  position: relative;
-}
-
-.pika-select-container.has-overlay {
-  height: 30px;
-  min-width: 2em;
-}
-
-.pika-select-container.has-overlay .pika-select {
-  position: absolute;
-  top: 11px;
-  right: 0;
-  bottom: 10px;
-  left: 0;
-  opacity: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-}
-
-.pika-select-container .pika-select {
-  min-width: 3em;
-  padding: .5em .25em;
-  margin: 0;
-}
-
-.pika-select-container .pika-select:active, .pika-select-container .pika-select:focus {
-  outline: 0;
-}
-
-.pika-select-container .pika-select-overlay {
-  position: absolute;
-  top: 11px;
-  right: 0;
-  bottom: 10px;
-  left: 0;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 33px;
-  color: #3c3c3c;
-  text-align: center;
-  vertical-align: center;
-}
-
-.pika-select-container .separator {
-  padding: 0 .5em;
-}
-
-.pika-select-container > .pika-up,
-.pika-select-container > .pika-down {
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-}
-
-.pika-select-container > .pika-up {
-  top: -6px;
-}
-
-.pika-select-container > .pika-down {
-  bottom: -8px;
-}
-
-.pika-select-container.with-increment-buttons {
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .pika-table {
@@ -267,6 +196,7 @@
   width: 14.285714285714286%;
   padding: 0;
   text-align: center;
+  vertical-align: middle;
 }
 
 .pika-table th {
@@ -292,9 +222,9 @@
   color: #3c3c3c;
   text-align: center;
   cursor: pointer;
-  outline: none;
-  border: 0;
   background: transparent;
+  border: 0;
+  outline: none;
   box-sizing: border-box;
 }
 
@@ -308,6 +238,10 @@
   color: #fff;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 3px;
+}
+
+.is-selected .pika-button:hover {
+  font-weight: 600;
 }
 
 .is-disabled .pika-button,
@@ -350,16 +284,86 @@
 }
 
 .pika-time-container {
+  height: 75px;
   clear: both;
+  background: rgba(0, 0, 0, 0.035);
+}
+
+.pika-select-container {
+  position: relative;
+  height: 75px;
+  min-width: 2em;
+}
+
+.pika-select-container.has-overlay .pika-select {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  bottom: 15px;
+  left: 0;
+  padding: 10px 0;
+  opacity: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.pika-select-container .pika-select {
+  z-index: 1;
+  min-width: 3em;
+  padding: .5em .25em;
+  margin: 0;
+}
+
+.pika-select-container .pika-select:active, .pika-select-container .pika-select:focus {
+  outline: 0;
+}
+
+.pika-select-container .pika-select-overlay {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  bottom: 15px;
+  left: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 45px;
+  color: #3c3c3c;
+  text-align: center;
+  vertical-align: center;
+}
+
+.pika-select-container .separator {
+  padding: 0 .5em;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.pika-select-container > .pika-up,
+.pika-select-container > .pika-down {
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.pika-select-container > .pika-up {
+  top: 0;
+}
+
+.pika-select-container > .pika-down {
+  bottom: 0;
 }
 
 .pika-time {
-  margin: 7px auto;
+  margin: 0 auto;
+  line-height: 75px;
 }
 
 .pika-time .pika-time-label {
   padding-right: .33em;
-  font-size: 11px;
+  font-size: 18px;
   font-weight: 600;
   color: #3c3c3c;
 }
