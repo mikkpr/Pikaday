@@ -223,9 +223,6 @@ $pd-font-family: $avenir;
       bottom: 10px;
       left: 0;
       opacity: 0;
-
-      -moz-appearance: none;
-      -webkit-appearance: none;
       appearance: none;
     }
   }
@@ -262,12 +259,9 @@ $pd-font-family: $avenir;
 
   > .pika-up,
   > .pika-down {
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
     position: absolute;
     left: 50%;
+    transform: translateX(-50%);
   }
 
   > .pika-up {
@@ -321,11 +315,10 @@ $pd-font-family: $avenir;
   color: $pd-text-color;
   text-align: center;
   cursor: pointer;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   outline: none;
   border: 0;
   background: $pd-day-bg;
+  box-sizing: border-box;
 
   .is-today & {
     font-weight: $bold;

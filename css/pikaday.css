@@ -15,17 +15,21 @@
   position: relative;
   z-index: 56000;
 }
+
 .pika-single.is-hidden {
   display: none;
 }
+
 .pika-single.is-bound {
   position: absolute;
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
 }
+
 .pika-single:before, .pika-single:after {
   display: table;
   content: ' ';
 }
+
 .pika-single:after {
   clear: both;
 }
@@ -40,6 +44,7 @@
   position: relative;
   text-align: center;
 }
+
 .pika-title select {
   position: absolute;
   top: 5px;
@@ -66,6 +71,7 @@
   background-color: #fff;
   vertical-align: middle;
 }
+
 .pika-label + .pika-label {
   margin-right: .25em;
 }
@@ -94,12 +100,14 @@
   *position: absolute;
   *top: 0;
 }
+
 .pika-prev:hover,
 .pika-next:hover,
 .pika-up:hover,
 .pika-down:hover {
   opacity: 1;
 }
+
 .pika-prev.is-disabled,
 .pika-next.is-disabled,
 .pika-up.is-disabled,
@@ -120,7 +128,8 @@
   display: block;
   width: 0;
   height: 0;
-  border-image: none;
+  -o-border-image: none;
+     border-image: none;
   border-style: solid;
   border-width: 5px;
   content: '';
@@ -131,6 +140,7 @@
   *left: 0;
   float: left;
 }
+
 .pika-prev::before,
 .is-rtl .pika-next::before {
   border-color: transparent currentColor transparent transparent;
@@ -141,6 +151,7 @@
   *right: 0;
   float: right;
 }
+
 .pika-next::before,
 .is-rtl .pika-prev::before {
   border-color: transparent transparent transparent currentColor;
@@ -150,6 +161,7 @@
   *left: 0;
   float: left;
 }
+
 .pika-up::before {
   border-color: transparent transparent currentColor;
 }
@@ -158,6 +170,7 @@
   *right: 0;
   float: right;
 }
+
 .pika-down::before {
   border-color: currentColor transparent transparent;
 }
@@ -175,10 +188,12 @@
 .pika-select-container {
   position: relative;
 }
+
 .pika-select-container.has-overlay {
   height: 30px;
   min-width: 2em;
 }
+
 .pika-select-container.has-overlay .pika-select {
   position: absolute;
   top: 11px;
@@ -186,18 +201,21 @@
   bottom: 10px;
   left: 0;
   opacity: 0;
-  -moz-appearance: none;
   -webkit-appearance: none;
-  appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
+
 .pika-select-container .pika-select {
   min-width: 3em;
   padding: .5em .25em;
   margin: 0;
 }
+
 .pika-select-container .pika-select:active, .pika-select-container .pika-select:focus {
   outline: 0;
 }
+
 .pika-select-container .pika-select-overlay {
   position: absolute;
   top: 11px;
@@ -211,24 +229,27 @@
   text-align: center;
   vertical-align: center;
 }
+
 .pika-select-container .separator {
   padding: 0 .5em;
 }
+
 .pika-select-container > .pika-up,
 .pika-select-container > .pika-down {
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
   position: absolute;
   left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
+
 .pika-select-container > .pika-up {
   top: -6px;
 }
+
 .pika-select-container > .pika-down {
   bottom: -8px;
 }
+
 .pika-select-container.with-increment-buttons {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -240,12 +261,14 @@
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 .pika-table th,
 .pika-table td {
   width: 14.285714285714286%;
   padding: 0;
   text-align: center;
 }
+
 .pika-table th {
   font-size: 12px;
   font-weight: 600;
@@ -253,6 +276,7 @@
   color: #3c3c3c;
   text-align: center;
 }
+
 .pika-table abbr {
   border-bottom: 0;
 }
@@ -268,28 +292,32 @@
   color: #3c3c3c;
   text-align: center;
   cursor: pointer;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   outline: none;
   border: 0;
   background: transparent;
+  box-sizing: border-box;
 }
+
 .is-today .pika-button {
   font-weight: 600;
   background: transparent;
 }
+
 .is-selected .pika-button {
   font-weight: 600;
   color: #fff;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 3px;
 }
-.is-disabled .pika-button, .is-outside-current-month .pika-button {
+
+.is-disabled .pika-button,
+.is-outside-current-month .pika-button {
   color: #999;
   pointer-events: none;
   cursor: default;
   opacity: .3;
 }
+
 .pika-button:hover {
   font-weight: 400;
   color: #3c3c3c;
@@ -328,6 +356,7 @@
 .pika-time {
   margin: 7px auto;
 }
+
 .pika-time .pika-time-label {
   padding-right: .33em;
   font-size: 11px;

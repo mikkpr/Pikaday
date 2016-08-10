@@ -30,8 +30,11 @@
     "moment": "2.x"
   },
   "devDependencies": {
+    "browserslist": "^1.3.5",
+    "expect.js": "^0.3.1",
     "mocha": "~1.18.2",
-    "expect.js": "^0.3.1"
+    "node-sass": "^3.8.0",
+    "watch": "^0.19.1"
   },
   "testling": {
     "harness": "mocha",
@@ -39,9 +42,20 @@
     "browsers": [
       "ie/7..latest",
       "chrome/latest",
-      "firefox/3.6", "firefox/latest",
+      "firefox/3.6",
+      "firefox/latest",
       "safari/latest",
       "opera/latest"
     ]
+  },
+  "dependencies": {
+    "autoprefixer": "^6.4.0",
+    "postcss-cli-simple": "^1.0.1"
+  },
+  "scripts": {
+    "postcss": "postcss -u autoprefixer -o css/pikaday.css css/pikaday.css",
+    "scss": "node-sass --output-style expanded scss/pikaday.scss css/pikaday.css",
+    "css": "npm run scss && npm run postcss",
+    "watch": "watch 'npm run css' ./scss"
   }
 }
