@@ -1,0 +1,24 @@
+linters:
+  PropertySortOrder:
+    order: recess
+
+  PropertySpelling:
+    enabled: true
+    extra_properties:
+      - text-size-adjust
+
+  TrailingWhitespace:
+    enabled: false
+
+  SelectorDepth:
+    enabled: true
+    max_depth: 4
+
+  SpaceAfterComma:
+    enabled: false
+
+  TrailingWhitespace:
+    enabled: false
+
+  VendorPrefixes:
+    enabled: false

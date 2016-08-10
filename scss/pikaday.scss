@@ -17,12 +17,13 @@ $pd-picker-border: #ccc !default;
 $pd-picker-border-bottom: #bbb !default;
 $pd-picker-shadow: rgba(0, 0, 0, .5) !default;
 $pd-th-color: #999 !default;
-$pd-day-color: rgb(140, 140, 140) !default;
+$pd-day-today-color: rgb(140, 140, 140) !default;
 $pd-day-bg: transparent !default;
 $pd-day-hover-color: #fff !default;
+$pd-day-color: rgb(204, 237, 244) !default;
 $pd-day-hover-bg: #ff8000 !default;
-$pd-day-today-color: rgb(204, 237, 244) !default;
 $pd-day-selected-color: #fff !default;
+$pd-day-selected-bg: rgba(0, 0, 0, .25) !default;
 $pd-day-disabled-color: #999 !default;
 $pd-week-color: #999 !default;
 
@@ -49,16 +50,16 @@ $pd-font-family: $avenir;
   }
 
   &.is-bound {
-    box-shadow: 0 1px 5px 0 $pd-picker-shadow;
     position: absolute;
+    box-shadow: 0 1px 5px 0 $pd-picker-shadow;
   }
 
   // clear child float (pika-lendar), using the famous micro clearfix hack
   // http://nicolasgallagher.com/micro-clearfix-hack/
   &:before,
   &:after {
-    content: ' ';
     display: table;
+    content: ' ';
   }
 
   &:after { clear: both }
@@ -66,8 +67,8 @@ $pd-font-family: $avenir;
 
 .pika-lendar {
   float: left;
-  margin: 8px;
   width: 240px;
+  margin: 8px;
 }
 
 .pika-title {
@@ -75,69 +76,69 @@ $pd-font-family: $avenir;
   text-align: center;
 
   select {
-    cursor: pointer;
     position: absolute;
+    top: 5px;
+    left: 0;
     z-index: 9998;
     margin: 0;
-    left: 0;
-    top: 5px;
-    filter: alpha(opacity = 0);
+    cursor: pointer;
     opacity: 0;
+    filter: alpha(opacity = 0);
   }
 }
 
 .pika-label {
-    display: inline-block;
-    *display: inline;
-    position: relative;
-    z-index: $zindex;
-    overflow: hidden;
-    margin: 0;
-    padding: 5px 3px;
-    font-size: 18px;
-    line-height: 20px;
-    font-weight: $bold;
-    color: $pd-text-color;
-    background-color: $pd-title-bg;
-    vertical-align: middle;
+  *display: inline;
+  display: inline-block;
+  position: relative;
+  z-index: $zindex;
+  overflow: hidden;
+  margin: 0;
+  padding: 5px 3px;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: $bold;
+  color: $pd-text-color;
+  background-color: $pd-title-bg;
+  vertical-align: middle;
 
-    & + & {
-      margin-right: .25em;
-    }
+  & + & {
+    margin-right: .25em;
+  }
 }
 
 .pika-prev,
 .pika-next,
 .pika-up,
 .pika-down {
-    color: $pd-text-color;
-    display: block;
-    cursor: pointer;
-    position: relative;
-    outline: none;
-    border: 0;
-    padding: 0;
-    width: 20px;
-    height: 30px;
-    text-indent: 20px; // hide text using text-indent trick, using width value (it's enough)
-    white-space: nowrap;
-    overflow: hidden;
-    background-color: transparent;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 75% 75%;
-    opacity: .5;
-    *position: absolute;
-    *top: 0;
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 30px;
+  padding: 0;
+  overflow: hidden;
+  color: $pd-text-color;
+  text-indent: 20px; // hide text using text-indent trick, using width value (it's enough)
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75% 75%;
+  border: 0;
+  outline: none;
+  opacity: .5;
+  *position: absolute;
+  *top: 0;
 
-    &:hover {
-        opacity: 1;
-    }
+  &:hover {
+    opacity: 1;
+  }
 
-    &.is-disabled {
-        cursor: default;
-        opacity: .2;
-    }
+  &.is-disabled {
+    cursor: default;
+    opacity: .2;
+  }
 }
 
 .pika-prev,
@@ -147,13 +148,13 @@ $pd-font-family: $avenir;
 .is-rtl .pika-prev,
 .is-rtl .pika-prev {
   &::before {
-    border-image: none;
     position: absolute;
     top: calc(50% - 5px);
     right: 5px;
     display: block;
     width: 0;
     height: 0;
+    border-image: none;
     border-style: solid;
     border-width: 5px;
     content: '';
@@ -162,40 +163,40 @@ $pd-font-family: $avenir;
 
 .pika-prev,
 .is-rtl .pika-next {
-    float: left;
-    *left: 0;
+  *left: 0;
+  float: left;
 
-    &::before {
-      border-color: transparent currentColor transparent transparent;
-    }
+  &::before {
+    border-color: transparent currentColor transparent transparent;
+  }
 }
 
 .pika-next,
 .is-rtl .pika-prev {
-    float: right;
-    *right: 0;
+  *right: 0;
+  float: right;
 
-    &::before {
-      border-color: transparent transparent transparent currentColor;
-    }
+  &::before {
+    border-color: transparent transparent transparent currentColor;
+  }
 }
 
 .pika-up {
-    float: left;
-    *left: 0;
+  *left: 0;
+  float: left;
 
-    &::before {
-      border-color: transparent transparent currentColor transparent;
-    }
+  &::before {
+    border-color: transparent transparent currentColor;
+  }
 }
 
 .pika-down {
-    float: right;
-    *right: 0;
+  *right: 0;
+  float: right;
 
-    &::before {
-      border-color: currentColor transparent transparent transparent;
-    }
+  &::before {
+    border-color: currentColor transparent transparent;
+  }
 }
 
 .pika-up,
@@ -204,35 +205,35 @@ $pd-font-family: $avenir;
 }
 
 .pika-select {
-    display: inline-block;
-    *display: inline;
+  *display: inline;
+  display: inline-block;
 }
 
 .pika-select-container {
   position: relative;
 
   &.has-overlay {
-    min-width: 2em;
     height: 30px;
+    min-width: 2em;
 
     .pika-select {
       position: absolute;
       top: 11px;
-      left: 0;
       right: 0;
       bottom: 10px;
+      left: 0;
       opacity: 0;
 
-      appearance: none;
       -moz-appearance: none;
       -webkit-appearance: none;
+      appearance: none;
     }
   }
 
   .pika-select {
-    margin: 0;
-    padding: .5em .25em;
     min-width: 3em;
+    padding: .5em .25em;
+    margin: 0;
 
     &:active,
     &:focus {
@@ -243,15 +244,15 @@ $pd-font-family: $avenir;
   .pika-select-overlay {
     position: absolute;
     top: 11px;
-    left: 0;
     right: 0;
     bottom: 10px;
-    text-align: center;
-    vertical-align: center;
-    line-height: 33px;
+    left: 0;
     font-size: 18px;
     font-weight: 500;
+    line-height: 33px;
     color: $pd-text-color;
+    text-align: center;
+    vertical-align: center;
   }
 
   .separator {
@@ -284,113 +285,111 @@ $pd-font-family: $avenir;
 }
 
 .pika-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 0;
+  width: 100%;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 
-    th,
-    td {
-        width: 14.285714285714286%;
-        padding: 0;
-        text-align: center;
-    }
+  th,
+  td {
+    width: 14.285714285714286%;
+    padding: 0;
+    text-align: center;
+  }
 
-    th {
-        color: $pd-text-color;
-        font-size: 12px;
-        line-height: 25px;
-        font-weight: $bold;
-        text-align: center;
-    }
+  th {
+    font-size: 12px;
+    font-weight: $bold;
+    line-height: 25px;
+    color: $pd-text-color;
+    text-align: center;
+  }
 
-    abbr {
-        border-bottom: none;
-        cursor: help;
-    }
+  abbr {
+    border-bottom: 0;
+  }
 }
 
 .pika-button {
-    cursor: pointer;
-    display: block;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    outline: none;
-    border: 0;
-    margin: 0;
-    width: 100%;
-    padding: 5px;
-    color: $pd-day-color;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 15px;
-    text-align: center;
+  display: block;
+  width: 100%;
+  padding: 5px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  color: $pd-text-color;
+  text-align: center;
+  cursor: pointer;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  border: 0;
+  background: $pd-day-bg;
+
+  .is-today & {
+    font-weight: $bold;
     background: $pd-day-bg;
+  }
 
-    .is-today & {
-        color: $pd-text-color;
-        background: $pd-day-bg;
-        font-weight: $bold;
-    }
+  .is-selected & {
+    font-weight: 600;
+    color: $pd-day-selected-color;
+    background: $pd-day-selected-bg;
+    border-radius: 3px;
+  }
 
-    .is-selected & {
-        color: $pd-day-color;
-        font-weight: 400;
-        background: $pd-day-today-color;
-        border-radius: 3px;
-    }
+  .is-disabled &,
+  .is-outside-current-month & {
+    color: $pd-day-disabled-color;
+    pointer-events: none;
+    cursor: default;
+    opacity: .3;
+  }
 
-    .is-disabled &,
-    .is-outside-current-month & {
-        pointer-events: none;
-        cursor: default;
-        color: $pd-day-disabled-color;
-        opacity: .3;
-    }
-
-    &:hover {
-        color: $pd-day-hover-color;
-        background: rgba(0,0,0,.25);
-        box-shadow: none;
-        border-radius: 3px;
-        font-weight: 600;
-    }
+  &:hover {
+    font-weight: 400;
+    color: $pd-text-color;
+    background: $pd-day-color;
+    border-radius: 3px;
+    box-shadow: none;
+  }
 }
 
 .pika-week {
-    font-size: 11px;
-    color: $pd-week-color;
+  font-size: 11px;
+  color: $pd-week-color;
 }
 
 .is-inrange .pika-button {
-    background: #D5E9F7;
+  background: #d5e9f7;
 }
 
 .is-startrange .pika-button {
-    color: #fff;
-    background: #6CB31D;
-    box-shadow: none;
-    border-radius: 3px;
+  color: #fff;
+  background: #6CB31D;
+  border-radius: 3px;
+  box-shadow: none;
 }
 
 .is-endrange .pika-button {
-    color: #fff;
-    background: #33aaff;
-    box-shadow: none;
-    border-radius: 3px;
+  color: #fff;
+  background: #3af;
+  border-radius: 3px;
+  box-shadow: none;
 }
 
 .pika-time-container {
-    clear: both;
+  clear: both;
 }
 
 .pika-time {
-  margin: 7px auto 7px;
+  margin: 7px auto;
 
   .pika-time-label {
-    font-weight: $bold;
+    padding-right: .33em;
     font-size: 11px;
-    color: #666;
-    padding-right: 0.33em;
+    font-weight: $bold;
+    color: $pd-text-color;
   }
 }
