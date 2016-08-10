@@ -257,6 +257,10 @@ $pd-font-family: $avenir;
   .is-today & {
     font-weight: $bold;
     background: $pd-day-bg;
+
+    &:hover {
+      font-weight: $bold;
+    }
   }
 
   .is-selected & {
@@ -264,10 +268,6 @@ $pd-font-family: $avenir;
     color: $pd-day-selected-color;
     background: $pd-day-selected-bg;
     border-radius: 3px;
-
-    &:hover {
-      font-weight: 600;
-    }
   }
 
   .is-disabled &,
