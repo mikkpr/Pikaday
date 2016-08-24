@@ -716,14 +716,21 @@
                     addEvent(target, 'change', self._onChange);
                 }
             }
+
             do {
-                if (hasClass(pEl, 'pika-single') ||
-                    pEl === opts.trigger ||
-                    (opts.showTime && hasClass(pEl, 'pika-time-container'))) {
-                    return;
-                }
+                if (
+                    hasClass(pEl, 'pika-single') ||
+                    pEl === opts.trigger || (
+                        opts.showTime && (
+                            hasClass(pEl, 'pika-time-container') ||
+                            hasClass(pEl, 'pika-up') ||
+                            hasClass(pEl, 'pika-down')
+                        )
+                    )
+                ) { return; }
             }
             while ((pEl = pEl.parentNode));
+
             if (self._v && target !== opts.trigger && pEl !== opts.trigger) {
                 self.hide();
             }
