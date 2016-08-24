@@ -288,7 +288,9 @@
         onSelect: null,
         onOpen: null,
         onClose: null,
-        onDraw: null
+        onDraw: null,
+
+        arrowNavigation: true
     },
 
 
@@ -298,6 +300,7 @@
     renderDayName = function(opts, day, abbr)
     {
         day += opts.firstDay;
+
         while (day >= 7) {
             day -= 7;
         }
@@ -604,17 +607,25 @@
                         opts.field.blur();
                         break;
                     case 37:
-                        e.preventDefault();
-                        self.adjustDate('subtract', 1);
+                        if (opts.arrowNavigation) {
+                            e.preventDefault();
+                            self.adjustDate('subtract', 1);
+                        }
                         break;
                     case 38:
-                        self.adjustDate('subtract', 7);
+                        if (opts.arrowNavigation) {
+                            self.adjustDate('subtract', 7);
+                        }
                         break;
                     case 39:
-                        self.adjustDate('add', 1);
+                        if (opts.arrowNavigation) {
+                            self.adjustDate('add', 1);
+                        }
                         break;
                     case 40:
-                        self.adjustDate('add', 7);
+                        if (opts.arrowNavigation) {
+                            self.adjustDate('add', 7);
+                        }
                         break;
                 }
             }
