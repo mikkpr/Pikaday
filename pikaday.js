@@ -557,7 +557,7 @@
           self.nextMonth();
         }
       }
-      if (!hasClass(target, 'pika-select')) {
+      if (!(hasClass(target, 'pika-select') || hasClass(target, 'pika-down') || hasClass(target, 'pika-up'))) {
         // if this is touch event prevent mouse events emulation
         if (e.preventDefault) {
           e.preventDefault();
